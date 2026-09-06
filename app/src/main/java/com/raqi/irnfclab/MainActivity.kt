@@ -37,16 +37,35 @@ class MainActivity : Activity() {
         val root = LinearLayout(this)
         root.orientation = LinearLayout.VERTICAL
         root.setBackgroundColor(0xFF0B1218.toInt())
+        root.fitsSystemWindows = true   // لا يختبئ خلف شريط الحالة/العنوان
 
-        // شريط التبويبات
+        // ===== عنوان التطبيق =====
+        val titleBar = android.widget.TextView(this)
+        titleBar.text = "IR & NFC Lab"
+        titleBar.setTextColor(Ui.ACCENT)
+        titleBar.setTypeface(null, android.graphics.Typeface.BOLD)
+        titleBar.textSize = 18f
+        titleBar.gravity = Gravity.CENTER
+        val tpad = (12 * resources.displayMetrics.density).toInt()
+        titleBar.setPadding(tpad, tpad, tpad, tpad / 2)
+        titleBar.setBackgroundColor(0xFF16202B.toInt())
+        root.addView(titleBar, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+
+        // ===== شريط التبويبات =====
         val tabs = LinearLayout(this)
         tabs.orientation = LinearLayout.HORIZONTAL
         tabs.setBackgroundColor(0xFF16202B.toInt())
+        val tabH = (52 * resources.displayMetrics.density).toInt()
         tabIr = tabButton("📡  الأشعة IR") { showIr() }
         tabNfc = tabButton("📶  NFC") { showNfc() }
-        tabs.addView(tabIr)
-        tabs.addView(tabNfc)
+        tabs.addView(tabIr, LinearLayout.LayoutParams(0, tabH, 1f))
+        tabs.addView(tabNfc, LinearLayout.LayoutParams(0, tabH, 1f))
         root.addView(tabs, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+
+        // خط سفلي فاصل تحت التبويبات
+        val divider = View(this)
+        divider.setBackgroundColor(0xFF2A3644.toInt())
+        root.addView(divider, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (2 * resources.displayMetrics.density).toInt()))
 
         container = FrameLayout(this)
         root.addView(container, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
@@ -72,11 +91,12 @@ class MainActivity : Activity() {
         val b = Button(this)
         b.text = text
         b.isAllCaps = false
+        b.textSize = 15f
+        b.setTypeface(null, android.graphics.Typeface.BOLD)
         b.setOnClickListener { onClick() }
         b.setBackgroundColor(Color.TRANSPARENT)
         b.setTextColor(Color.LTGRAY)
         b.gravity = Gravity.CENTER
-        b.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         return b
     }
 
@@ -84,14 +104,18 @@ class MainActivity : Activity() {
         irView.visibility = View.VISIBLE
         nfcView.visibility = View.GONE
         tabIr.setTextColor(Ui.ACCENT)
+        tabIr.setBackgroundColor(0xFF20303F.toInt())
         tabNfc.setTextColor(Color.LTGRAY)
+        tabNfc.setBackgroundColor(Color.TRANSPARENT)
     }
 
     private fun showNfc() {
         irView.visibility = View.GONE
         nfcView.visibility = View.VISIBLE
         tabNfc.setTextColor(Ui.ACCENT)
+        tabNfc.setBackgroundColor(0xFF20303F.toInt())
         tabIr.setTextColor(Color.LTGRAY)
+        tabIr.setBackgroundColor(Color.TRANSPARENT)
     }
 
     // ---------------------------------------------------------- NFC dispatch
