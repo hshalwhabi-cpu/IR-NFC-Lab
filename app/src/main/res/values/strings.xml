@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IR &amp; NFC Lab</string>
+    <string name="hce_desc">محاكاة بطاقة NDEF ‏(Type 4 Tag)‎ وبطاقة AID مخصصة</string>
+    <string name="hce_ndef">بطاقة NDEF مُحاكاة</string>
+    <string name="hce_custom">بطاقة AID مخصصة</string>
+</resources>

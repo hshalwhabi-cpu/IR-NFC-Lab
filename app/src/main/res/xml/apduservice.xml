@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/hce_desc"
+    android:requireDeviceUnlock="false"
+    android:apduServiceBanner="@drawable/hce_banner">
+
+    <!-- تطبيق NDEF القياسي: يجعل الجوال يظهر لقارئ آخر كتاق NDEF حقيقي -->
+    <aid-group android:description="@string/hce_ndef" android:category="other">
+        <aid-filter android:name="D2760000850101" />
+    </aid-group>
+
+    <!-- AID مخصص للتجارب الحرة (يمكنك تغييره ثم إعادة تثبيت التطبيق) -->
+    <aid-group android:description="@string/hce_custom" android:category="other">
+        <aid-filter android:name="F0524151492D4C4142" />
+    </aid-group>
+
+</host-apdu-service>
